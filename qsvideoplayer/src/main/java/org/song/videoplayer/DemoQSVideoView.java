@@ -7,33 +7,33 @@ import android.graphics.drawable.ColorDrawable;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
 import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by song on 2017/4/9.
- * Contact github.com/tohodog
  * diy自己的播放器,不需要写播放逻辑,只需设置各个状态下view的显示状态即可
  */
 public class DemoQSVideoView extends QSVideoViewHelp {
 
     protected ImageView coverImageView;//封面
     protected ViewGroup bottomContainer;//底部栏
+    protected TextView rateTextView;//倍速
     protected ViewGroup topContainer;//顶部栏
     protected ViewGroup loadingContainer;//初始化
     protected ViewGroup errorContainer;//出错了显示的 重试
     protected ViewGroup bufferingContainer;//缓冲
 
     protected List<View> changeViews;//根据状态隐藏显示的view集合
+
+    protected float rate = 1.f;
 
     public DemoQSVideoView(Context context) {
         this(context, null);
@@ -57,14 +57,28 @@ public class DemoQSVideoView extends QSVideoViewHelp {
     }
 
     protected void initView() {
-        topContainer = (ViewGroup) findViewById(R.id.layout_top);
-        bottomContainer = (ViewGroup) findViewById(R.id.layout_bottom);
+        topContainer = findViewById(R.id.layout_top);
+        bottomContainer = findViewById(R.id.layout_bottom);
+        rateTextView = bottomContainer.findViewById(R.id.help_rate);
+        rateTextView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                rate += 0.25f;
+                if (rate > 2)
+                    rate = 0.25f;
 
-        bufferingContainer = (ViewGroup) findViewById(R.id.buffering_container);
-        loadingContainer = (ViewGroup) findViewById(R.id.loading_container);
-        errorContainer = (ViewGroup) findViewById(R.id.error_container);
+                if (!setSpeed(rate)) {
+                    Toast.makeText(getContext(), "该解码器不支持", Toast.LENGTH_SHORT).show();
+                    rate = 1f;
+                }
+                rateTextView.setText("X" + rate);
+            }
+        });
+        bufferingContainer = findViewById(R.id.buffering_container);
+        loadingContainer = findViewById(R.id.loading_container);
+        errorContainer = findViewById(R.id.error_container);
 
-        coverImageView = (ImageView) findViewById(R.id.cover);
+        coverImageView = findViewById(R.id.cover);
 
         changeViews = new ArrayList<>();
 
@@ -201,22 +215,6 @@ public class DemoQSVideoView extends QSVideoViewHelp {
         });
         videoPopWindow.showTop(view);
         cancelDismissControlViewTimer();
-//        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
-//            PopupMenu mPopupMenu = new PopupMenu(getContext(), view);
-//            for (int i = 0; i < qsVideos.size(); i++) {
-//                QSVideo q = qsVideos.get(i);
-//                mPopupMenu.getMenu().add(i, i, i, q.resolution());
-//            }
-//            mPopupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-//                @Override
-//                public boolean onMenuItemClick(MenuItem item) {
-//                    switchVideo(item.getItemId());
-//                    return true;
-//                }
-//            });
-//            mPopupMenu.show();
-//        }
-
     }
 
     protected PopupWindow mProgressDialog;
@@ -231,11 +229,11 @@ public class DemoQSVideoView extends QSVideoViewHelp {
     protected boolean showProgressDialog(int delta, int position, int duration) {
         if (mProgressDialog == null) {
             View localView = LayoutInflater.from(getContext()).inflate(R.layout.jc_dialog_progress, null);
-            mDialogProgressBar = ((ProgressBar) localView.findViewById(R.id.duration_progressbar));
-            tv_current = ((TextView) localView.findViewById(R.id.tv_current));
-            tv_duration = ((TextView) localView.findViewById(R.id.tv_duration));
-            tv_delta = ((TextView) localView.findViewById(R.id.tv_delta));
-            mDialogIcon = ((ImageView) localView.findViewById(R.id.duration_image_tip));
+            mDialogProgressBar = localView.findViewById(R.id.duration_progressbar);
+            tv_current = localView.findViewById(R.id.tv_current);
+            tv_duration = localView.findViewById(R.id.tv_duration);
+            tv_delta = localView.findViewById(R.id.tv_delta);
+            mDialogIcon = localView.findViewById(R.id.duration_image_tip);
             mProgressDialog = getPopupWindow(localView);
 
         }
@@ -308,11 +306,9 @@ public class DemoQSVideoView extends QSVideoViewHelp {
     protected boolean showBrightnessDialog(int brightnessPercent, int max) {
         if (mBrightnessDialog == null) {
             View localView = LayoutInflater.from(getContext()).inflate(R.layout.jc_dialog_brightness, null);
-            mDialogBrightnessTextView = ((TextView) localView.findViewById(R.id.tv_brightness));
-            mDialogBrightnessProgressBar = ((ProgressBar) localView.findViewById(R.id.brightness_progressbar));
+            mDialogBrightnessTextView = localView.findViewById(R.id.tv_brightness);
+            mDialogBrightnessProgressBar = localView.findViewById(R.id.brightness_progressbar);
             mDialogBrightnessProgressBar.setMax(max);
-            //mBrightnessDialog = getDialog(Gravity.TOP, 0, Util.dp2px(getContext(), 50));
-            //mBrightnessDialog.setContentView(localView);
 
             mBrightnessDialog = getPopupWindow(localView);
         }
@@ -340,5 +336,4 @@ public class DemoQSVideoView extends QSVideoViewHelp {
         mPopupWindow.setAnimationStyle(R.style.jc_popup_toast_anim);
         return mPopupWindow;
     }
-
 }

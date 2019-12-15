@@ -59,6 +59,15 @@
             android:textColor="#ffffff" />
 
         <TextView
+            android:id="@id/help_rate"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginLeft="8dp"
+            android:gravity="center"
+            android:text="@string/rate"
+            android:textColor="#ffffff" />
+
+        <TextView
             android:id="@id/help_definition"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
@@ -82,7 +91,7 @@
         android:id="@+id/layout_top"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:background="@drawable/top_backgroud"
+        android:background="@drawable/top_background"
         android:gravity="center_vertical">
 
         <ImageView

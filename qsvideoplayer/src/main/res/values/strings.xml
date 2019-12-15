@@ -9,4 +9,5 @@
     <string name="todo">TODO</string>
     <string name="hd">高清</string>
     <string name="time">00:00</string>
+    <string name="rate">X1.0</string>
 </resources>
