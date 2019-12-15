@@ -33,14 +33,6 @@ import org.song.videoplayer.media.IMediaCallback;
 
 import java.util.Map;
 
-//import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
-
-/**
- * Created by song on 2017/2/22.
- * Contact github.com/tohodog
- * exo-2.0.4
- */
-
 public class ExoMedia extends BaseMedia implements ExoPlayer.EventListener, SimpleExoPlayer.VideoListener {
 
     private final String USER_AGENT = "(￢_￢)";

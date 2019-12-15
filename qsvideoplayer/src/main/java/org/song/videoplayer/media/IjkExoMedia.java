@@ -9,11 +9,6 @@ import java.util.Map;
 import tv.danmaku.ijk.media.exo.IjkExoMediaPlayer;
 import tv.danmaku.ijk.media.player.IMediaPlayer;
 
-/**
- * Created by song on 2017/2/22.
- * Contact github.com/tohodog
- */
-
 public class IjkExoMedia extends IjkBaseMedia {
 
     public IjkExoMedia(IMediaCallback iMediaCallback) {
@@ -43,7 +38,6 @@ public class IjkExoMedia extends IjkBaseMedia {
         }
     };
 
-
     @Override
     public boolean setSpeed(float rate) {
         return false;
@@ -54,6 +48,4 @@ public class IjkExoMedia extends IjkBaseMedia {
         super.release();
         mainThreadHandler.removeCallbacks(runnable);
     }
-
-
 }

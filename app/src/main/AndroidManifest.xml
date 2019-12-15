@@ -31,12 +31,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".RecyVideoActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize" />
-        <activity
-            android:name=".ListVideoActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize" />
     </application>
 
 </manifest>
