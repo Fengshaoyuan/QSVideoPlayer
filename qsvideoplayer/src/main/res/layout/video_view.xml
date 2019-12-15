@@ -67,6 +67,15 @@
             android:src="@drawable/iv_voice_audible"/>
 
         <TextView
+            android:id="@id/help_size"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginLeft="8dp"
+            android:gravity="center"
+            android:text="@string/size"
+            android:textColor="#ffffff" />
+
+        <TextView
             android:id="@id/help_rate"
             android:layout_width="wrap_content"
             android:layout_height="30dp"

@@ -10,4 +10,5 @@
     <string name="hd">高清</string>
     <string name="time">00:00</string>
     <string name="rate">X1.0</string>
+    <string name="size">默认</string>
 </resources>

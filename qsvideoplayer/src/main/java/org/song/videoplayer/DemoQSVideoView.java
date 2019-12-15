@@ -26,6 +26,7 @@ public class DemoQSVideoView extends QSVideoViewHelp {
     protected ImageView coverImageView;//封面
     protected ViewGroup bottomContainer;//底部栏
     protected ImageView voiceTextView;//静音
+    protected TextView sizeTextView;//比例调整
     protected TextView rateTextView;//倍速
     protected ViewGroup topContainer;//顶部栏
     protected ViewGroup loadingContainer;//初始化
@@ -34,6 +35,8 @@ public class DemoQSVideoView extends QSVideoViewHelp {
 
     protected List<View> changeViews;//根据状态隐藏显示的view集合
 
+    protected String[] arr = {"适应", "填充", "默认", "拉伸", "16:9", "4:3"};
+    protected int mode;
     protected boolean mute;
     protected float rate = 1.f;
 
@@ -71,6 +74,14 @@ public class DemoQSVideoView extends QSVideoViewHelp {
                 } else {
                     voiceTextView.setImageResource(R.drawable.iv_voice_audible);
                 }
+            }
+        });
+        sizeTextView = bottomContainer.findViewById(R.id.help_size);
+        sizeTextView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setAspectRatio(++mode > 5 ? mode = 0 : mode);
+                sizeTextView.setText(arr[mode]);
             }
         });
         rateTextView = bottomContainer.findViewById(R.id.help_rate);

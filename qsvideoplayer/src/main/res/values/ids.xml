@@ -22,6 +22,7 @@
     <item name="help_definition" type="id" />
     <item name="help_rate" type="id" />
     <item name="help_voice" type="id" />
+    <item name="help_size" type="id" />
 
     <item name="qs_videoview" type="id" />
 
