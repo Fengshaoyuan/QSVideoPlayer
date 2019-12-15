@@ -1,0 +1,67 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 27
+
+
+    defaultConfig {
+        applicationId "org.song.demo"
+        minSdkVersion 15
+        targetSdkVersion 27
+        versionCode 1
+        versionName "2.2.8"
+    }
+    signingConfigs {
+        release {
+            keyAlias 'song'
+            keyPassword 'key2923584'
+            storeFile file('song.jks')
+            storePassword 'store2923584'
+            //v2SigningEnabled false//关闭Scheme v2
+        }
+    }
+    sourceSets {
+        main() {
+            manifest.srcFile 'src/main/AndroidManifest.xml'
+            java.srcDirs = ['src/main/java']
+            resources.srcDirs = ['src/main/resources']
+            res.srcDirs = ['src/main/res']
+            assets.srcDirs = ['src/main/assets']
+            jniLibs.srcDirs = ['libs']
+            jni.srcDirs = ['src/main/jni']
+
+        }
+    }
+    buildTypes {
+        release {
+            //混淆
+            minifyEnabled false
+            zipAlignEnabled true//zipAlign优化
+            shrinkResources false//移除无用的Resources文件
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release //加签名
+        }
+    }
+    //忽略xml多国语言问题
+    lintOptions {
+        disable 'MissingTranslation', 'ExtraTranslation'
+        abortOnError false
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
+
+    implementation 'com.github.ctiao:DanmakuFlameMaster:0.9.25'
+    implementation 'com.github.ctiao:ndkbitmap-armv7a:0.9.21'
+//    # Other ABIs: optional
+//    compile 'com.github.ctiao:ndkbitmap-armv5:0.9.21'
+//    compile 'com.github.ctiao:ndkbitmap-x86:0.9.21'
+
+    api project(':qsvideoplayer')
+
+
+}

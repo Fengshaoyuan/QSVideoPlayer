@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tips_not_wifi">You are currently using the mobile network, the player will continue to consume traffic</string>
+    <string name="tips_not_wifi_confirm">Resume</string>
+    <string name="tips_not_wifi_cancel">Stop play</string>
+    <string name="no_url">No mUrl</string>
+    <string name="online">Live</string>
+    <string name="zero">0</string>
+    <string name="todo">TODO</string>
+    <string name="hd">高清</string>
+    <string name="time">00:00</string>
+</resources>
