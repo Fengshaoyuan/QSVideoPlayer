@@ -25,6 +25,7 @@ public class DemoQSVideoView extends QSVideoViewHelp {
 
     protected ImageView coverImageView;//封面
     protected ViewGroup bottomContainer;//底部栏
+    protected ImageView voiceTextView;//静音
     protected TextView rateTextView;//倍速
     protected ViewGroup topContainer;//顶部栏
     protected ViewGroup loadingContainer;//初始化
@@ -33,6 +34,7 @@ public class DemoQSVideoView extends QSVideoViewHelp {
 
     protected List<View> changeViews;//根据状态隐藏显示的view集合
 
+    protected boolean mute;
     protected float rate = 1.f;
 
     public DemoQSVideoView(Context context) {
@@ -59,6 +61,18 @@ public class DemoQSVideoView extends QSVideoViewHelp {
     protected void initView() {
         topContainer = findViewById(R.id.layout_top);
         bottomContainer = findViewById(R.id.layout_bottom);
+        voiceTextView = bottomContainer.findViewById(R.id.help_voice);
+        voiceTextView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setMute(mute = !mute);
+                if (mute) {
+                    voiceTextView.setImageResource(R.drawable.iv_voice_mute);
+                } else {
+                    voiceTextView.setImageResource(R.drawable.iv_voice_audible);
+                }
+            }
+        });
         rateTextView = bottomContainer.findViewById(R.id.help_rate);
         rateTextView.setOnClickListener(new OnClickListener() {
             @Override
